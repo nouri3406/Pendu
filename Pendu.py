@@ -10,6 +10,7 @@ word =list (get_english_words_set(["gcide"]))
 enigme = list( random.choice (list(word)).lower())
 caracter = len(enigme)
 etat =["_"]*caracter 		
+lettres =[]
 fautes = 0
 limite = 12
 
@@ -20,14 +21,14 @@ def word_or_let (lettre) :
 		let(lettre)
 
 def word (lettre) :
-	global etat, fautes, enigme, caracter
+	global etat, fautes, enigme, caracter, lettres
 	if list(lettre) == enigme :
 		etat = enigme
 	else :
 		fautes +=5
 
 def let (lettre) :
-	global etat, fautes, enigme, caracter 
+	global etat, fautes, enigme, caracter,lettres 
 	if lettre in enigme :
 		for i, y in enumerate (enigme) :
 			if lettre == y :
@@ -36,20 +37,18 @@ def let (lettre) :
 		fautes += 1
 
 while etat !=  enigme:
-	print("\nLe mot est :", " ".join(etat))
-	lettre = input("Entrer une lettre : ")
+	print("\nLe mot est : ", *etat )
+	lettre = input("Entrer une lettre ou un mot : ")
+	if  lettre not in lettres :
+		lettres.append( lettre )
 	word_or_let(lettre)
-	lettres= []
-	if lettre not in lettres:
-        	lettres.append(lettre)    
-	print("La liste des lettres jouées :", lettres)
-	#word_or_let (lettre)
-		
+
 	if fautes >= limite:
-		print ("yoou loose ! play again", "le mot était :", enigme)
+		print ("you loose ! play again", "le mot était :", *enigme)
 		break
 	if etat == enigme:
-		print (*etat)		
+		print (*etat)
 		print ("GG you a GOOAATTTT !!!!")
 		break
-	print (" il te reste : ", limite-fautes, "chance" )
+	print (" il te reste : ", limite-fautes, "vies" )
+	print ("les lettres déja jouées sont : ", *lettres )
