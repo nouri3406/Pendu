@@ -1,5 +1,6 @@
 import random
 from english_words import get_english_words_set
+import time
 
 def AKA ():
 	user =input ("enter your A.K.A !!! :" )
@@ -9,10 +10,11 @@ AKA()
 word =list (get_english_words_set(["gcide"]))
 enigme = list( random.choice (list(word)).lower())
 caracter = len(enigme)
-etat =["_"]*caracter 		
+etat =["_"]*caracter
 lettres =[]
 fautes = 0
 limite = 12
+start =time.time()
 
 def word_or_let (lettre) :
 	if len(lettre) > 1 :
@@ -52,3 +54,8 @@ while etat !=  enigme:
 		break
 	print (" il te reste : ", limite-fautes, "vies" )
 	print ("les lettres déja jouées sont : ", *lettres )
+	temps_écoulé = time.time()-start
+	minutes = int(temps_écoulé // 60)
+	secondes = int(temps_écoulé % 60)
+	centiemes = int((temps_écoulé * 100) % 100)
+	print ( "\nTemps écoulé : ", minutes, "m :", secondes,"s :", centiemes, "c" )
